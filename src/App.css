@@ -1,7 +1,15 @@
-.App {
+.main{
   text-align: center;
+  align-items: center;
 }
 
+.main h1{
+  color: rgb(159, 28, 37);
+}
+
+.main ul{
+  cursor: pointer;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
