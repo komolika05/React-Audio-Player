@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AudioPlayer from "./components/AudioPlayer";
 import FileUpload from "./components/FileUpload";
 import "./App.css";
@@ -6,6 +6,15 @@ import "./App.css";
 const App = () => {
   const [playlist, setPlaylist] = useState([]);
   const [selectedAudio, setSelectedAudio] = useState(null);
+
+  useEffect(() => {
+    const storedIndex = localStorage.getItem("lastPlayingIndex");
+
+    if (storedIndex !== null) {
+      const index = parseInt(storedIndex, 10);
+      setSelectedAudio(playlist[index]);
+    }
+  }, [playlist]);
 
   const handleFileChange = (selectedFile) => {
     const newAudio = {
@@ -15,7 +24,6 @@ const App = () => {
 
     setPlaylist([...playlist, newAudio]);
 
-    // Set the first uploaded song as the selectedAudio if none is selected
     if (!selectedAudio) {
       setSelectedAudio(newAudio);
     }
@@ -23,6 +31,7 @@ const App = () => {
 
   const handleAudioSelection = (index) => {
     setSelectedAudio(playlist[index]);
+    localStorage.setItem("lastPlayingIndex", index);
   };
 
   return (
