@@ -1,13 +1,14 @@
 import React from "react";
+import AudioPlayer from "react-audio-player";
 
-const Player = ({ file }) => {
+const Player = ({ file, playNext }) => {
   if (!file || (typeof file === "object" && !Object.keys(file).length)) {
     return null; // Handle no file selected
   }
 
   return (
     <div>
-      <audio controls src={file.data} />
+      <AudioPlayer controls src={file.data} onEnded={playNext} />
     </div>
   );
 };

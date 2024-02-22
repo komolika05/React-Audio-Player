@@ -13,6 +13,15 @@ const Playlist = ({ playlist }) => {
     setSelectedFile(playlist[index]);
   };
 
+  const handlePlayNext = () => {
+    const currentFileIdx = playlist.findIndex(
+      (f) => f.name === selectedFile.name
+    );
+
+    console.log({ currentFileIdx });
+    setSelectedFile(playlist[(currentFileIdx + 1) % playlist.length]);
+  };
+
   return (
     <div>
       {playlist.length > 0 && (
@@ -29,7 +38,7 @@ const Playlist = ({ playlist }) => {
       {selectedFile && (
         <div>
           <h3>Playing: {selectedFile.name}</h3>
-          <AudioPlayer file={selectedFile} />
+          <AudioPlayer file={selectedFile} playNext={handlePlayNext} />
         </div>
       )}
     </div>
