@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import AudioPlayer from "./AudioPlayer"; // Import AudioPlayer component
+import { useLocalStorage } from "react-use";
 
 const Playlist = ({ playlist }) => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [currentIndex, setCurrentIndex] = useLocalStorage("currentIndex", 0); // Use useLocalStorage hook
+  const [selectedFile, setSelectedFile] = useState(
+    playlist[currentIndex] || null
+  );
 
   useEffect(() => {
     // Update selectedFile when playlist changes
-    setSelectedFile(playlist[0] || null);
-  }, [playlist]);
+    setSelectedFile(playlist[currentIndex] || null);
+  }, [playlist, currentIndex]);
 
   const handleSelect = (index) => {
     setSelectedFile(playlist[index]);
+    setCurrentIndex(index); // Update current index on selection
   };
 
   const handlePlayNext = () => {
@@ -18,7 +23,9 @@ const Playlist = ({ playlist }) => {
       (f) => f.name === selectedFile.name
     );
 
-    setSelectedFile(playlist[(currentFileIdx + 1) % playlist.length]);
+    const nextIndex = (currentFileIdx + 1) % playlist.length;
+    setSelectedFile(playlist[nextIndex]);
+    setCurrentIndex(nextIndex);
   };
 
   return (
