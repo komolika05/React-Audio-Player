@@ -8,7 +8,7 @@ const Player = ({ file, playNext }) => {
 
   return (
     <div>
-      <AudioPlayer controls src={file.data} onEnded={playNext} />
+      <AudioPlayer controls src={file.data} onEnded={playNext} autoPlay />
     </div>
   );
 };

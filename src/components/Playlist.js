@@ -18,7 +18,6 @@ const Playlist = ({ playlist }) => {
       (f) => f.name === selectedFile.name
     );
 
-    console.log({ currentFileIdx });
     setSelectedFile(playlist[(currentFileIdx + 1) % playlist.length]);
   };
 
